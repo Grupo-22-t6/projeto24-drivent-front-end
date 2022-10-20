@@ -1,3 +1,7 @@
 export default function Payment() {
-  return 'Pagamento: Em breve!';
+  return (
+    <>
+      <h1>Ingresso e pagamento</h1>
+    </>
+  );
 }
