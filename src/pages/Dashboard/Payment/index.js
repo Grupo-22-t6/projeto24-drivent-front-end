@@ -1,15 +1,15 @@
 import styled from 'styled-components';
-import CardButton from '../../../components/Payment/CardButton';
+import ModalitySelection from '../../../components/Payment/ModalitySelection';
+import useEnrollment from '../../../hooks/api/useEnrollment';
 
 export default function Payment() {
+  const { enrollment } = useEnrollment();
+
   return (
     <Container>
       <h1>Ingresso e pagamento</h1>
       <h2>Primeiro, escolha sua modalidade do ingresso</h2>
-      <Content>
-        <CardButton price="300">Presencial</CardButton>
-        <CardButton price="150">Online</CardButton>
-      </Content>
+      <ModalitySelection/>
     </Container>
   );
 }
