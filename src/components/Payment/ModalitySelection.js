@@ -9,8 +9,8 @@ export default function ModalitySelection() {
 
   return (
     <SelectionContainer>
-      {eventInfo.isPresential ? <CardButton price="300">Presencial</CardButton> : ''}
-      {eventInfo.isOnline ? <CardButton price="150">Online</CardButton> : ''}
+      {eventInfo.isPresential ? <CardButton price={eventInfo.presentialPrice/100}>Presencial</CardButton> : ''}
+      {eventInfo.isOnline ? <CardButton price={eventInfo.onlinePrice/100}>Online</CardButton> : ''}
     </SelectionContainer>
   );
 }
