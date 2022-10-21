@@ -1,10 +1,7 @@
 import styled from 'styled-components';
 import ModalitySelection from '../../../components/Payment/ModalitySelection';
-import useEnrollment from '../../../hooks/api/useEnrollment';
 
 export default function Payment() {
-  const { enrollment } = useEnrollment();
-
   return (
     <Container>
       <h1>Ingresso e pagamento</h1>
@@ -25,7 +22,3 @@ const Container = styled.div`
   }
 `;
 
-const Content = styled.div`
-display: flex;
-
-`;
