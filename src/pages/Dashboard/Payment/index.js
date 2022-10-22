@@ -5,7 +5,7 @@ import useEnrollment from '../../../hooks/api/useEnrollment';
 
 export default function Payment() {
   const { enrollment } = useEnrollment();
-  console.log(enrollment);
+  
   if (!enrollment) {
     return (
       <Container>
