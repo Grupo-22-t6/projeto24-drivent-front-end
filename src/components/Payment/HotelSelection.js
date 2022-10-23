@@ -6,7 +6,12 @@ import { useNavigate } from 'react-router-dom';
 export default function HotelSelection({ presentialPrice, onlinePrice }) {
   const navigate = useNavigate();
   const [buttonStatus, setButtonStatus] = useState([false, false]);
+  const [haveHotel, setHaveHotel] = useState(false);
   const [finalPrice, setFinalPrice] = useState('');
+
+  const toPaymentCard = () => {
+    navigate('/dashboard/payment/card', { state: { finalPrice, haveHotel } });
+  };
 
   return (
     <>
@@ -22,6 +27,7 @@ export default function HotelSelection({ presentialPrice, onlinePrice }) {
               const newStatus = [true, false];
               setButtonStatus(newStatus);
             }
+            setHaveHotel(false);
             setFinalPrice(0 + onlinePrice);
           }}
           buttonStatus={buttonStatus[0]}
@@ -39,6 +45,7 @@ export default function HotelSelection({ presentialPrice, onlinePrice }) {
               setButtonStatus(newStatus);
             }
             setFinalPrice(350 + presentialPrice);
+            setHaveHotel(true);
           }}
           buttonStatus={buttonStatus[1]}
         >
@@ -48,12 +55,12 @@ export default function HotelSelection({ presentialPrice, onlinePrice }) {
       {buttonStatus[0] ? (
         <>
           <h2>Fechado! O total ficou em R$ {finalPrice}. Agora é só confirmar:</h2>
-          <Reserve onClick={() => navigate('/dashboard/payment/card')}>RESERVAR INGRESSO</Reserve>
+          <Reserve onClick={() => toPaymentCard()}>RESERVAR INGRESSO</Reserve>
         </>
       ) : buttonStatus[1] ? (
         <>
           <h2>Fechado! O total ficou em R$ {finalPrice}. Agora é só confirmar:</h2>
-          <Reserve onClick={() => navigate('/dashboard/payment/card')}>RESERVAR INGRESSO</Reserve>
+          <Reserve onClick={() => toPaymentCard()}>RESERVAR INGRESSO</Reserve>
         </>
       ) : (
         ''
@@ -82,4 +89,5 @@ const Reserve = styled.button`
   border-radius: 4px;
   font-weight: 400;
   font-size: 14px;
+  box-shadow: 0px 0px 10px 0.2px rgba(0, 0, 0, 0.3);
 `;
