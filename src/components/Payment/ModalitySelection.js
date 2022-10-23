@@ -8,7 +8,7 @@ import HotelSelection from './HotelSelection';
 export default function ModalitySelection() {
   const { eventInfo } = useContext(EventInfoContext);
   const { paymentData, setPaymentData } = useContext(PaymentContext);
-  const [ buttonStatus, setButtonStatus ] = useState([false, false]);
+  const [buttonStatus, setButtonStatus] = useState([false, false]);
 
   return (
     <>
@@ -16,7 +16,7 @@ export default function ModalitySelection() {
         {eventInfo.isPresential ? (
           <Span
             onClick={() => {
-              if(buttonStatus[0] === buttonStatus[1]) {
+              if (buttonStatus[0] === buttonStatus[1]) {
                 const newStatus = [true, false];
                 let newPaymentData = paymentData;
                 newPaymentData.isPresencial = true;
@@ -24,7 +24,7 @@ export default function ModalitySelection() {
                 setButtonStatus(newStatus);
                 setPaymentData(newPaymentData);
               }
-              if(buttonStatus[1] === true) {
+              if (buttonStatus[1] === true) {
                 const newStatus = [true, false];
                 let newPaymentData = paymentData;
                 newPaymentData.isPresencial = true;
@@ -43,7 +43,7 @@ export default function ModalitySelection() {
         {eventInfo.isOnline ? (
           <Span
             onClick={() => {
-              if(buttonStatus[0] === buttonStatus[1]) {
+              if (buttonStatus[0] === buttonStatus[1]) {
                 const newStatus = [false, true];
                 let newPaymentData = paymentData;
                 newPaymentData.isPresencial = false;
@@ -51,7 +51,7 @@ export default function ModalitySelection() {
                 setButtonStatus(newStatus);
                 setPaymentData(newPaymentData);
               }
-              if(buttonStatus[0] === true) {
+              if (buttonStatus[0] === true) {
                 const newStatus = [false, true];
                 let newPaymentData = paymentData;
                 newPaymentData.isPresencial = false;
@@ -68,8 +68,10 @@ export default function ModalitySelection() {
           ''
         )}
       </SelectionContainer>
-      {paymentData.isPresencial && <HotelSelection />}
-    </>  
+      {paymentData.isPresencial && (
+        <HotelSelection presentialPrice={eventInfo.presentialPrice / 100} onlinePrice={eventInfo.onlinePrice / 100} />
+      )}
+    </>
   );
 }
 
@@ -78,6 +80,6 @@ const SelectionContainer = styled.div`
 `;
 const Span = styled.span`
   div {
-    background-color: ${(props) => props.buttonStatus ? '#FFEED2' : '#FFFFFF'};
+    background-color: ${(props) => (props.buttonStatus ? '#FFEED2' : '#FFFFFF')};
   }
 `;
