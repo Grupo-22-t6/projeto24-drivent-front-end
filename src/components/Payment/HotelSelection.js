@@ -3,13 +3,16 @@ import CardButton from './CardButton';
 
 export default function HotelSelection() {
   return (
-    <SelectionContainer>
-      <CardButton price="0">Sem Hotel</CardButton>
-      <CardButton price="350">Com Hotel</CardButton> 
-    </SelectionContainer>
+    <>
+      <h2 className="choseAccommodation">Ótimo! Agora escolha sua modalidade de hospedagem</h2>
+      <SelectionContainer>
+        <CardButton price="0">Sem Hotel</CardButton>
+        <CardButton price="350">Com Hotel</CardButton>
+      </SelectionContainer>
+    </>
   );
 }
 
 const SelectionContainer = styled.div`
-  display: flex; 
+  display: flex;
 `;
