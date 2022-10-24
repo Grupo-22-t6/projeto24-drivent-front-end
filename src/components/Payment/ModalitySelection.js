@@ -35,7 +35,7 @@ export default function ModalitySelection() {
             }}
             buttonStatus={buttonStatus[0]}
           >
-            <CardButton price={eventInfo.presentialPrice / 100}>Presencial</CardButton>
+            <CardButton price={eventInfo.presentialPrice}>Presencial</CardButton>
           </Span>
         ) : (
           ''
@@ -62,14 +62,14 @@ export default function ModalitySelection() {
             }}
             buttonStatus={buttonStatus[1]}
           >
-            <CardButton price={eventInfo.onlinePrice / 100}>Online</CardButton>
+            <CardButton price={eventInfo.onlinePrice}>Online</CardButton>
           </Span>
         ) : (
           ''
         )}
       </SelectionContainer>
       {paymentData.isPresencial && (
-        <HotelSelection presentialPrice={eventInfo.presentialPrice / 100} onlinePrice={eventInfo.onlinePrice / 100} />
+        <HotelSelection presentialPrice={eventInfo.presentialPrice} onlinePrice={eventInfo.onlinePrice} />
       )}
     </>
   );

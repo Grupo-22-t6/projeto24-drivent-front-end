@@ -4,7 +4,7 @@ import useEnrollment from '../../../hooks/api/useEnrollment';
 
 export default function Payment() {
   const { enrollment } = useEnrollment();
-  
+
   if (!enrollment) {
     return (
       <Container>
@@ -19,7 +19,7 @@ export default function Payment() {
     <Container>
       <h1>Ingresso e pagamento</h1>
       <h2>Primeiro, escolha sua modalidade do ingresso</h2>
-      <ModalitySelection/>
+      <ModalitySelection />
     </Container>
   );
 }
