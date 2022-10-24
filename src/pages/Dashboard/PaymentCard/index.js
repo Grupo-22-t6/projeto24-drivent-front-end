@@ -5,7 +5,7 @@ import PaymentContext from '../../../contexts/PaymentContext';
 import Card from '../../../components/Payment/Card';
 
 export default function PaymentCard() {
-  const { paymentData } = useContext(PaymentContext);
+  const { paymentData, setPaymentData } = useContext(PaymentContext);
   const [isPresential, setIspresential] = useState('Online');
   const [haveHotel, setHaveHotel] = useState('Sem Hotel');
 
@@ -14,6 +14,7 @@ export default function PaymentCard() {
   useEffect(() => {
     if (paymentData.isPresencial === true) setIspresential('Presencial');
     if (location.state.haveHotel === true) setHaveHotel('Com Hotel');
+    setPaymentData({ ...paymentData, paymentValue: location.state.finalPrice });
   }, []);
 
   return (

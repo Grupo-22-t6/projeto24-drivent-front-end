@@ -1,22 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Cards from 'react-credit-cards';
 import FormControl from '@mui/material/FormControl';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import FormHelperText from '@mui/material/FormHelperText';
-import {
-  formatCreditCardNumber,
-  formatCVC,
-  formatExpirationDate,
-  formatFormData,
-} from '../../utils/cardFormatValidation';
+import { toast } from 'react-toastify';
+import { formatCreditCardNumber, formatCVC, formatExpirationDate } from '../../utils/cardFormatValidation';
 
 import 'react-credit-cards/es/styles-compiled.css';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { Reserve } from './HotelSelection';
+import PaymentContext from '../../contexts/PaymentContext';
+import useSavePayment from '../../hooks/api/useSavePayment';
 
 export default function Card() {
+  const { paymentData } = useContext(PaymentContext);
+  const { savePayment } = useSavePayment();
   const [cardData, setCardData] = useState({
     number: '',
     name: '',
@@ -49,9 +49,21 @@ export default function Card() {
     setCardData({ ...cardData, [target.name]: target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log(cardData);
+    const payment = {
+      ...paymentData,
+      cardNumber: cardData.number,
+      cardName: cardData.name,
+      expirationDate: cardData.expiry,
+      securityCode: cardData.cvc,
+    };
+    try {
+      await savePayment(payment);
+      toast('Compra finalizada!');
+    } catch (e) {
+      toast('Não foi possível comprar o ingresso!');
+    }
   };
 
   return (
