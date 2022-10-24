@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import PaymentContext from '../../../contexts/PaymentContext';
-import Card from './Card';
+import Card from '../../../components/Payment/Card';
 
 export default function PaymentCard() {
   const { paymentData } = useContext(PaymentContext);

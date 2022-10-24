@@ -79,12 +79,12 @@ const Span = styled.span`
   }
 `;
 
-const Reserve = styled.button`
+export const Reserve = styled.button`
   margin-top: 17px;
   cursor: pointer;
   background-color: #e0e0e0;
-  width: 162px;
   height: 37px;
+  padding: 0px 10px;
   border: none;
   border-radius: 4px;
   font-weight: 400;

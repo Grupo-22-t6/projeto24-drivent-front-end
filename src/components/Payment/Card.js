@@ -9,11 +9,12 @@ import {
   formatCVC,
   formatExpirationDate,
   formatFormData,
-} from '../../../utils/cardFormatValidation';
+} from '../../utils/cardFormatValidation';
 
 import 'react-credit-cards/es/styles-compiled.css';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { Reserve } from './HotelSelection';
 
 export default function Card() {
   const [cardData, setCardData] = useState({
@@ -50,16 +51,7 @@ export default function Card() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { issuer } = this.state;
-    const formData = [...e.target.elements]
-      .filter((d) => d.name)
-      .reduce((acc, d) => {
-        acc[d.name] = d.value;
-        return acc;
-      }, {});
-
-    this.setState({ formData });
-    this.form.reset();
+    console.log(cardData);
   };
 
   return (
@@ -132,9 +124,9 @@ export default function Card() {
           </FormControl>
         </div>
         <input type="hidden" name="issuer" value={cardData.issuer} />
-        <div className="form-actions">
-          <button className="btn btn-primary btn-block">PAY</button>
-        </div>
+        <ButtonBox>
+          <Reserve>FINALIZAR PAGAMENTO</Reserve>
+        </ButtonBox>
       </form>
     </Container>
   );
@@ -142,9 +134,10 @@ export default function Card() {
 
 const Container = styled.div`
   display: flex;
+  position: relative;
   form {
     width: 300px;
-    height: 225px;
+    height: 184px;
     margin-left: 30px;
     display: flex;
     flex-direction: column;
@@ -154,4 +147,9 @@ const Container = styled.div`
       width: 100%;
     }
   }
+`;
+const ButtonBox = styled.div`
+  position: absolute;
+  bottom: -100px;
+  left: 0px;
 `;
