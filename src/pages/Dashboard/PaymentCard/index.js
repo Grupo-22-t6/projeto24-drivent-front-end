@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import PaymentContext from '../../../contexts/PaymentContext';
-import Card from '../../../components/Payment/Card';
+import CreditCard from '../../../components/Payment/CreditCard';
 
 export default function PaymentCard() {
   const { paymentData, setPaymentData } = useContext(PaymentContext);
@@ -28,7 +28,7 @@ export default function PaymentCard() {
         </Box>
         <h2>Pagamento</h2>
         <CardBox>
-          <Card />
+          <CreditCard />
         </CardBox>
       </Container>
     </>
