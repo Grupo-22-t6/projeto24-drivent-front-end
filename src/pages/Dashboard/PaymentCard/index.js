@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import ConfirmPayment from '../../../components/Payment/ConfirmPayment';
 export default function PaymentCard() {
   return (
     <>
@@ -10,19 +10,20 @@ export default function PaymentCard() {
           <h3>Presencial + Com Hotel</h3>
           <h4>R$ 600</h4>
         </Box>
+        <ConfirmPayment></ConfirmPayment>
       </Container>
     </>
   );
 }
 
 const Container = styled.div`
-  h1{
+  h1 {
     font-size: 34px;
     margin-bottom: 28px;
   }
 
-  h2{
-    color: #8E8E8E;
+  h2 {
+    color: #8e8e8e;
     font-size: 20px;
   }
 `;
@@ -37,7 +38,7 @@ const Box = styled.div`
   justify-content: center;
   margin: 20px 24px;
   margin-left: 0px;
-  background-color: #FFEED2;
+  background-color: #ffeed2;
   cursor: pointer;
   h3 {
     color: #454545;
@@ -50,4 +51,3 @@ const Box = styled.div`
     line-height: 16px;
   }
 `;
-
