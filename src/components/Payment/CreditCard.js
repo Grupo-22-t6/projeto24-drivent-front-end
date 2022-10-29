@@ -3,7 +3,8 @@ import Cards from 'react-credit-cards';
 import 'react-credit-cards/es/styles-compiled.css';
 import styled from 'styled-components';
 import PaymentContext from '../../contexts/PaymentContext';
-export default function CreditCard() {
+export default function CreditCard(props) {
+  const { setPaymentConfirm } = props;
   const { paymentData, setPaymentData } = useContext(PaymentContext);
 
   const { isOnline, isPresencial, paymentValue } = paymentData;
@@ -25,9 +26,11 @@ export default function CreditCard() {
             <Input
               type="text"
               name="number"
-              maxLength={16}
+              minLength={16}
+              maxLength={19}
               value={number}
               placeholder="Card Number"
+              required
               onChange={(e) => setNumber(e.target.value)}
               onFocus={(e) => setFocus(e.target.name)}
             />
@@ -36,8 +39,10 @@ export default function CreditCard() {
           <Input
             name="name"
             type="text"
+            maxLength={30}
             value={name}
             placeholder="Name"
+            required
             onChange={(e) => setName(e.target.value)}
             onFocus={(e) => setFocus(e.target.name)}
           />
@@ -46,9 +51,11 @@ export default function CreditCard() {
               <Input
                 name="expiry"
                 type="text"
-                maxLength={4}
+                minLength={4}
+                maxLength={5}
                 value={expiry}
                 placeholder="Valid Thru"
+                required
                 onChange={(e) => setExpiry(e.target.value)}
                 onFocus={(e) => setFocus(e.target.name)}
               />
@@ -57,9 +64,11 @@ export default function CreditCard() {
               <Input
                 name="cvc"
                 type="text"
+                minLength={3}
                 maxLength={3}
                 value={cvc}
                 placeholder="CVC"
+                required
                 onChange={(e) => setCvc(e.target.value)}
                 onFocus={(e) => setFocus(e.target.name)}
               />
@@ -87,6 +96,7 @@ export default function CreditCard() {
     };
 
     setPaymentData(newPaymentData);
+    setPaymentConfirm(true);
   }
 }
 
