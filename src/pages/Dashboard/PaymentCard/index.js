@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import styled from 'styled-components';
 import CreditCard from '../../../components/Payment/CreditCard';
 import ConfirmPayment from '../../../components/Payment/ConfirmPayment';
+import PaymentContext from '../../../contexts/PaymentContext';
 export default function PaymentCard() {
+  const { paymentData } = useContext(PaymentContext);
   const [isPaymentConfirmed, setPaymentConfirm] = useState(false);
 
   return (
@@ -12,13 +14,9 @@ export default function PaymentCard() {
         <h2>Ingresso escolhido</h2>
         <Box>
           <h3>Presencial + Com Hotel</h3>
-          <h4>R$ 600</h4>
+          <h4>R$ {paymentData.paymentValue}</h4>
         </Box>
-        {isPaymentConfirmed ? (
-          <ConfirmPayment />
-        ) : (
-          <CreditCard setPaymentConfirm={setPaymentConfirm} />
-        )}
+        {isPaymentConfirmed ? <ConfirmPayment /> : <CreditCard setPaymentConfirm={setPaymentConfirm} />}
       </Container>
     </>
   );
