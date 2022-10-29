@@ -8,7 +8,7 @@ export default function ModalitySelection() {
   const { eventInfo } = useContext(EventInfoContext);
   const { paymentData, setPaymentData } = useContext(PaymentContext);
   const [ buttonStatus, setButtonStatus ] = useState([false, false]);
-
+  
   return (
     <SelectionContainer>
       {eventInfo.isPresential ? (
@@ -19,6 +19,7 @@ export default function ModalitySelection() {
               let newPaymentData = paymentData;
               newPaymentData.isPresencial = true;
               newPaymentData.isOnline = false;
+              newPaymentData.paymentValue = eventInfo.presentialPrice/100;
               setButtonStatus(newStatus);
               setPaymentData(newPaymentData);
             }
@@ -27,6 +28,7 @@ export default function ModalitySelection() {
               let newPaymentData = paymentData;
               newPaymentData.isPresencial = true;
               newPaymentData.isOnline = false;
+              newPaymentData.paymentValue = eventInfo.presentialPrice/100;
               setButtonStatus(newStatus);
               setPaymentData(newPaymentData);
             }
@@ -46,6 +48,7 @@ export default function ModalitySelection() {
               let newPaymentData = paymentData;
               newPaymentData.isPresencial = false;
               newPaymentData.isOnline = true;
+              newPaymentData.paymentValue = eventInfo.onlinePrice/100;
               setButtonStatus(newStatus);
               setPaymentData(newPaymentData);
             }
@@ -54,6 +57,7 @@ export default function ModalitySelection() {
               let newPaymentData = paymentData;
               newPaymentData.isPresencial = false;
               newPaymentData.isOnline = true;
+              newPaymentData.paymentValue = eventInfo.onlinePrice/100;
               setButtonStatus(newStatus);
               setPaymentData(newPaymentData);
             }
