@@ -49,7 +49,7 @@ export default function CreditCard() {
     setCardData({ ...cardData, [target.name]: target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
 
     const payment = {
