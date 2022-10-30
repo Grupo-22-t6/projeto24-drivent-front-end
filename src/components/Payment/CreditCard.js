@@ -14,7 +14,7 @@ import { Reserve } from './HotelSelection';
 import PaymentContext from '../../contexts/PaymentContext';
 import useSavePayment from '../../hooks/api/useSavePayment';
 
-export default function Card() {
+export default function CreditCard() {
   const { paymentData } = useContext(PaymentContext);
   const { savePayment } = useSavePayment();
   const [cardData, setCardData] = useState({
@@ -51,12 +51,13 @@ export default function Card() {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
+
     const payment = {
       ...paymentData,
-      cardNumber: cardData.number,
-      cardName: cardData.name,
-      expirationDate: cardData.expiry,
-      securityCode: cardData.cvc,
+      cardNumber: cardData.number.replace(/\s/g, ''),
+      cardName: cardData.name.trim(),
+      expirationDate: cardData.expiry.trim(),
+      securityCode: cardData.cvc.trim(),
     };
     try {
       await savePayment(payment);

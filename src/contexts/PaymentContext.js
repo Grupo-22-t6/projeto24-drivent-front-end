@@ -7,6 +7,7 @@ export default PaymentContext;
 
 export function PaymentProvider({ children }) {
   const [paymentData, setPaymentData] = useLocalStorage('paymentData', {
+    eventId: undefined,
     isPresential: undefined,
     isOnline: undefined,
     paymentValue: undefined,
@@ -15,10 +16,6 @@ export function PaymentProvider({ children }) {
     expirationDate: undefined,
     securityCode: undefined,
   });
-  
-  return (
-    <PaymentContext.Provider value={{ paymentData, setPaymentData }}>
-      {children}
-    </PaymentContext.Provider>
-  );
+
+  return <PaymentContext.Provider value={{ paymentData, setPaymentData }}>{children}</PaymentContext.Provider>;
 }

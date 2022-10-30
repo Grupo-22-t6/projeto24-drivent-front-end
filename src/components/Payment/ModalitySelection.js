@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useContext, useState } from 'react';
 import styled from 'styled-components';
 import EventInfoContext from '../../contexts/EventInfoContext';
@@ -9,7 +10,10 @@ export default function ModalitySelection() {
   const { eventInfo } = useContext(EventInfoContext);
   const { paymentData, setPaymentData } = useContext(PaymentContext);
   const [buttonStatus, setButtonStatus] = useState([false, false]);
-
+  useEffect(() => {
+    let newPaymentData = paymentData;
+    newPaymentData.eventId = eventInfo.id;
+  });
   return (
     <>
       <SelectionContainer>
@@ -19,7 +23,7 @@ export default function ModalitySelection() {
               if (buttonStatus[0] === buttonStatus[1]) {
                 const newStatus = [true, false];
                 let newPaymentData = paymentData;
-                newPaymentData.isPresencial = true;
+                newPaymentData.isPresential = true;
                 newPaymentData.isOnline = false;
                 setButtonStatus(newStatus);
                 setPaymentData(newPaymentData);
@@ -27,7 +31,7 @@ export default function ModalitySelection() {
               if (buttonStatus[1] === true) {
                 const newStatus = [true, false];
                 let newPaymentData = paymentData;
-                newPaymentData.isPresencial = true;
+                newPaymentData.isPresential = true;
                 newPaymentData.isOnline = false;
                 setButtonStatus(newStatus);
                 setPaymentData(newPaymentData);
@@ -46,7 +50,7 @@ export default function ModalitySelection() {
               if (buttonStatus[0] === buttonStatus[1]) {
                 const newStatus = [false, true];
                 let newPaymentData = paymentData;
-                newPaymentData.isPresencial = false;
+                newPaymentData.isPresential = false;
                 newPaymentData.isOnline = true;
                 setButtonStatus(newStatus);
                 setPaymentData(newPaymentData);
@@ -54,7 +58,7 @@ export default function ModalitySelection() {
               if (buttonStatus[0] === true) {
                 const newStatus = [false, true];
                 let newPaymentData = paymentData;
-                newPaymentData.isPresencial = false;
+                newPaymentData.isPresential = false;
                 newPaymentData.isOnline = true;
                 setButtonStatus(newStatus);
                 setPaymentData(newPaymentData);
@@ -68,7 +72,7 @@ export default function ModalitySelection() {
           ''
         )}
       </SelectionContainer>
-      {paymentData.isPresencial && (
+      {paymentData.isPresential && (
         <HotelSelection presentialPrice={eventInfo.presentialPrice} onlinePrice={eventInfo.onlinePrice} />
       )}
     </>
