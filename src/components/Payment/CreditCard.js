@@ -49,15 +49,15 @@ export default function CreditCard() {
     setCardData({ ...cardData, [target.name]: target.value });
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(paymentData);
+
     const payment = {
       ...paymentData,
-      cardNumber: cardData.number,
-      cardName: cardData.name,
-      expirationDate: cardData.expiry,
-      securityCode: cardData.cvc,
+      cardNumber: cardData.number.replace(/\s/g, ''),
+      cardName: cardData.name.trim(),
+      expirationDate: cardData.expiry.trim(),
+      securityCode: cardData.cvc.trim(),
     };
     try {
       await savePayment(payment);
