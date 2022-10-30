@@ -11,7 +11,7 @@ export default function PaymentCard() {
   const location = useLocation();
 
   useEffect(() => {
-    if (paymentData.isPresencial === true) setIspresential('Presencial');
+    if (paymentData.isPresential === true) setIspresential('Presencial');
     if (location.state.haveHotel === true) setHaveHotel('Com Hotel');
     setPaymentData({ ...paymentData, paymentValue: location.state.finalPrice });
   }, []);
@@ -60,7 +60,7 @@ const Box = styled.div`
   justify-content: center;
   margin: 20px 24px;
   margin-left: 0px;
-  background-color: #FFEED2;
+  background-color: #ffeed2;
   cursor: pointer;
   h3 {
     color: #454545;
@@ -73,4 +73,6 @@ const Box = styled.div`
     line-height: 16px;
   }
 `;
-
+const CardBox = styled.div`
+  margin: 20px 24px;
+`;
