@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import resortImg from '../../assets/images/drivenResort.svg';
 
-export default function HotelButton({ name, imageUrl, accommodationsType }) {
+export default function HotelButton({ name, imageUrl, accommodationsType, roomsVacancies }) {
   const [type, setType] = useState('');
 
   useEffect(() => {
@@ -17,12 +16,12 @@ export default function HotelButton({ name, imageUrl, accommodationsType }) {
 
   return (
     <Box>
-      <img src={imageUrl} alt="Hotel image" height={109} width={168} />
+      <img src={imageUrl} alt="Hotel" height={109} width={168} />
       <h3>{name}</h3>
       <h4>Tipos de acomodação:</h4>
       <p>{type}</p>
       <h4>Vagas disponíveis:</h4>
-      <p>103</p>
+      <p>{roomsVacancies}</p>
     </Box>
   );
 }
