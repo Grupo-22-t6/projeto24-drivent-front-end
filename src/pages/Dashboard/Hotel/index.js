@@ -1,15 +1,25 @@
 import styled from 'styled-components';
 import HotelButton from '../../../components/Hotel/HotelButton';
+import useHotel from '../../../hooks/api/useHotel';
 
 export default function Hotel() {
+  const { hotels } = useHotel();
+
   return (
     <Container>
       <h1>Escolha de hotel e quarto</h1>
       <h2>Primeiro, escolha seu hotel</h2>
       <Hotels>
-        <HotelButton />
-        <HotelButton />
-        <HotelButton />
+        {hotels?.map((hotel, index) => {
+          return (
+            <HotelButton
+              key={index}
+              name={hotel.name}
+              imageUrl={hotel.imageUrl}
+              accommodationsType={hotel.accommodationsTypes}
+            />
+          );
+        })}
       </Hotels>
     </Container>
   );
