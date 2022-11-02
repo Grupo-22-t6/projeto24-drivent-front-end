@@ -1,15 +1,27 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import resortImg from '../../assets/images/drivenResort.svg';
 
-export default function HotelButton({ price, children }) {
+export default function HotelButton({ name, imageUrl, accommodationsType, roomsVacancies }) {
+  const [type, setType] = useState('');
+
+  useEffect(() => {
+    if (accommodationsType === 1) {
+      setType('Single');
+    } else if (accommodationsType === 2) {
+      setType('Single e Double');
+    } else {
+      setType('Single, Double e Triple');
+    }
+  }, []);
+
   return (
     <Box>
-      <img src={resortImg} alt="" height={109} width={168} />
-      <h3>Driven Resort</h3>
+      <img src={imageUrl} alt="Hotel" height={109} width={168} />
+      <h3>{name}</h3>
       <h4>Tipos de acomodação:</h4>
-      <p>Single e Double</p>
+      <p>{type}</p>
       <h4>Vagas disponíveis:</h4>
-      <p>103</p>
+      <p>{roomsVacancies}</p>
     </Box>
   );
 }
