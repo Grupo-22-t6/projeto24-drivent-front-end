@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-export default function HotelButton({ name, imageUrl, accommodationsType, roomsVacancies }) {
+export default function HotelButton({ buttonStatus, name, imageUrl, accommodationsType, roomsVacancies }) {
   const [type, setType] = useState('');
 
   useEffect(() => {
@@ -15,7 +15,7 @@ export default function HotelButton({ name, imageUrl, accommodationsType, roomsV
   }, []);
 
   return (
-    <Box>
+    <Box buttonStatus={buttonStatus}>
       <img src={imageUrl} alt="Hotel" height={109} width={168} />
       <h3>{name}</h3>
       <h4>Tipos de acomodação:</h4>
@@ -38,6 +38,8 @@ const Box = styled.div`
   margin-left: 0px;
   background-color: #f1f1f1;
   cursor: pointer;
+
+  background-color: ${(props) => (props.buttonStatus ? '#FFEED2' : '#FFFFFF')};
 
   img {
     border-radius: 5px;
