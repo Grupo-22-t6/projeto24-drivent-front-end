@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import HotelButton from '../../../components/Hotel/HotelButton';
 import useHotel from '../../../hooks/api/useHotel';
 
 export default function Hotel() {
   const { hotels, roomsVacancies } = useHotel();
+  const [open, setOpen] = useState('');
 
   return (
     <Container>
@@ -14,15 +16,18 @@ export default function Hotel() {
           hotels?.map((hotel, index) => {
             return (
               <HotelButton
-                key={index}
+                index={index}
                 name={hotel.name}
                 imageUrl={hotel.imageUrl}
                 accommodationsType={hotel.accommodationsTypes}
                 roomsVacancies={roomsVacancies[index]}
+                open={open}
+                setOpen={setOpen}
               />
             );
           })}
       </Hotels>
+      {open !== '' ? <h2>Ótima pedida! Agora escolha seu quarto:</h2> : null}
     </Container>
   );
 }

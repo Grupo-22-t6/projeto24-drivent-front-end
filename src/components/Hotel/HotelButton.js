@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-export default function HotelButton({ name, imageUrl, accommodationsType, roomsVacancies }) {
+export default function HotelButton({ index, name, imageUrl, accommodationsType, roomsVacancies, open, setOpen }) {
   const [type, setType] = useState('');
-
   useEffect(() => {
     if (accommodationsType === 1) {
       setType('Single');
@@ -14,8 +13,16 @@ export default function HotelButton({ name, imageUrl, accommodationsType, roomsV
     }
   }, []);
 
+  function openRooms() {
+    if (open === index) {
+      setOpen('');
+    } else {
+      setOpen(index);
+    }
+  }
+
   return (
-    <Box>
+    <Box onClick={() => openRooms()}>
       <img src={imageUrl} alt="Hotel" height={109} width={168} />
       <h3>{name}</h3>
       <h4>Tipos de acomodação:</h4>
