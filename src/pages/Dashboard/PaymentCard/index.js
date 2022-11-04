@@ -3,10 +3,12 @@ import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import PaymentContext from '../../../contexts/PaymentContext';
 import CreditCard from '../../../components/Payment/CreditCard';
+import ConfirmPayment from '../../../components/Payment/ConfirmPayment';
 export default function PaymentCard() {
   const { paymentData, setPaymentData } = useContext(PaymentContext);
   const [isPresential, setIspresential] = useState('Online');
   const [haveHotel, setHaveHotel] = useState('Sem Hotel');
+  const [paymentDone, setPaymentDone] = useState(false);
 
   const location = useLocation();
 
@@ -26,9 +28,13 @@ export default function PaymentCard() {
           <h4>R$ {location.state.finalPrice}</h4>
         </Box>
         <h2>Pagamento</h2>
-        <CardBox>
-          <CreditCard />
-        </CardBox>
+        {paymentDone ? (
+          <ConfirmPayment />
+        ) : (
+          <CardBox>
+            <CreditCard setPaymentDone={setPaymentDone} />
+          </CardBox>
+        )}
       </Container>
     </>
   );
@@ -47,6 +53,8 @@ const Container = styled.div`
   h2 {
     color: #8e8e8e;
     font-size: 20px;
+    margin-bottom: 28px;
+    margin-top: 10px;
   }
 `;
 
@@ -58,7 +66,7 @@ const Box = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 20px 24px;
+  margin-bottom: 20px;
   margin-left: 0px;
   background-color: #ffeed2;
   cursor: pointer;
