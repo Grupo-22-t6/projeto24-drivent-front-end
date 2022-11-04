@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import HotelButton from '../../../components/Hotel/HotelButton';
+import RoomsBox from '../../../components/Hotel/RoomsBox';
 import useHotel from '../../../hooks/api/useHotel';
 
 export default function Hotel() {
-  const { hotels, roomsVacancies } = useHotel();
+  const { hotels } = useHotel();
   const [open, setOpen] = useState('');
 
   return (
@@ -12,22 +13,26 @@ export default function Hotel() {
       <h1>Escolha de hotel e quarto</h1>
       <h2>Primeiro, escolha seu hotel</h2>
       <Hotels>
-        {roomsVacancies &&
-          hotels?.map((hotel, index) => {
-            return (
-              <HotelButton
-                index={index}
-                name={hotel.name}
-                imageUrl={hotel.imageUrl}
-                accommodationsType={hotel.accommodationsTypes}
-                roomsVacancies={roomsVacancies[index]}
-                open={open}
-                setOpen={setOpen}
-              />
-            );
-          })}
+        {hotels?.map((hotel, index) => {
+          return (
+            <HotelButton
+              index={index}
+              name={hotel.name}
+              imageUrl={hotel.imageUrl}
+              accommodationsType={hotel.accommodationsTypes}
+              roomsVacancies={hotel.roomsVacancies}
+              open={open}
+              setOpen={setOpen}
+            />
+          );
+        })}
       </Hotels>
-      {open !== '' ? <h2>Ótima pedida! Agora escolha seu quarto:</h2> : null}
+      {open !== '' ? (
+        <>
+          <h2>Ótima pedida! Agora escolha seu quarto:</h2>
+          <RoomsBox hotelIndex={open} />
+        </>
+      ) : null}
     </Container>
   );
 }
@@ -47,4 +52,5 @@ const Hotels = styled.div`
   display: flex;
   width: 100%;
   height: 80%;
+  margin-bottom: 30px;
 `;
