@@ -22,7 +22,7 @@ export default function HotelButton({ index, name, imageUrl, accommodationsType,
   }
 
   return (
-    <Box onClick={() => openRooms()}>
+    <Box onClick={() => openRooms()} open={open} index={index}>
       <img src={imageUrl} alt="Hotel" height={109} width={168} />
       <h3>{name}</h3>
       <h4>Tipos de acomodação:</h4>
@@ -43,7 +43,7 @@ const Box = styled.div`
   margin: 20px 24px;
   padding: 16px 14px 16px 14px;
   margin-left: 0px;
-  background-color: #f1f1f1;
+  background-color: ${(props) => (props.open !== props.index ? '#F1F1F1' : '#FFEED2')};
   cursor: pointer;
 
   img {
