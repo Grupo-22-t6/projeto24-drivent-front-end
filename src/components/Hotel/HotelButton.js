@@ -28,13 +28,13 @@ export default function HotelButton({ name, imageUrl, accommodationsType, roomsV
 
 const Box = styled.div`
   width: 196px;
-  height: 264px;
+  min-height: 264px;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   margin: 20px 24px;
-  padding: 16px 14px 0 14px;
+  padding: 16px 14px 16px 14px;
   margin-left: 0px;
   background-color: #f1f1f1;
   cursor: pointer;
