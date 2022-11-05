@@ -5,7 +5,7 @@ import useToken from '../useToken';
 
 export default function useHotel() {
   const token = useToken();
-  const { data: hotels, loading: hotelsLoading, error: hotelsError } = useAsync(hotelApi.getHotels(token));
+  const { data: hotels, loading: hotelsLoading, error: hotelsError } = useAsync(() => hotelApi.getHotels(token));
 
   return {
     hotels,
