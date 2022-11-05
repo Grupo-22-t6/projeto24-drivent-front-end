@@ -6,7 +6,7 @@ import useHotel from '../../../hooks/api/useHotel';
 
 export default function Hotel() {
   const { hotels } = useHotel();
-  const [open, setOpen] = useState('');
+  const [rooms, setRooms] = useState('');
 
   return (
     <Container>
@@ -16,21 +16,21 @@ export default function Hotel() {
         {hotels?.map((hotel, index) => {
           return (
             <HotelButton
-              index={index}
+              index={hotel.id}
               name={hotel.name}
               imageUrl={hotel.imageUrl}
               accommodationsType={hotel.accommodationsTypes}
               roomsVacancies={hotel.roomsVacancies}
-              open={open}
-              setOpen={setOpen}
+              rooms={rooms}
+              setRooms={setRooms}
             />
           );
         })}
       </Hotels>
-      {open !== '' ? (
+      {rooms !== '' ? (
         <>
           <h2>Ótima pedida! Agora escolha seu quarto:</h2>
-          <RoomsBox hotelIndex={open} />
+          <RoomsBox rooms={rooms} setRooms={setRooms} />
         </>
       ) : null}
     </Container>
