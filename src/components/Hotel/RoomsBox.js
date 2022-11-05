@@ -5,8 +5,13 @@ import Room from './Room';
 export default function RoomsBox({ rooms }) {
   return (
     <Box>
-      {rooms?.map((room) => (
-        <Room number={room.number} accommodationType={room.accommodationType} reserves={room.reserves.length} />
+      {rooms?.map((room, index) => (
+        <Room
+          key={index}
+          number={room.number}
+          accommodationType={room.accommodationType}
+          reserves={room.reserves.length}
+        />
       ))}
     </Box>
   );

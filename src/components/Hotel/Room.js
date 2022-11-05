@@ -13,7 +13,7 @@ export default function Room({ number, accommodationType, reserves }) {
     const vacanciesArray = [];
     const reserveIndexs = accommodationType - reserves + 1;
     for (let i = 1; i <= accommodationType; i++) {
-      if (i === reserveIndexs) {
+      if (i >= reserveIndexs) {
         vacanciesArray.push(<BsPersonFill size="1.17em" />);
         continue;
       }
@@ -23,7 +23,10 @@ export default function Room({ number, accommodationType, reserves }) {
   }
 
   return (
-    <Container>
+    <Container
+      availability={accommodationType - reserves === 0 ? '#CECECE' : '#FFFFFF'}
+      opacity={accommodationType - reserves === 0 ? '60%' : '100%'}
+    >
       <h3>{number}</h3>
       <div>{vacancies?.map((vacancie) => vacancie)}</div>
     </Container>
@@ -31,6 +34,8 @@ export default function Room({ number, accommodationType, reserves }) {
 }
 
 const Container = styled.div`
+  background-color: ${(props) => props.availability};
+  opacity: ${(props) => props.opacity};
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -44,6 +49,6 @@ const Container = styled.div`
   padding: 11px 14px;
   cursor: pointer;
   :hover {
-    background-color: #f1f1f1;
+    background-color: ${(props) => (props.availability === '#FFFFFF' ? '#F1F1F1' : '#CECECE')};
   }
 `;
