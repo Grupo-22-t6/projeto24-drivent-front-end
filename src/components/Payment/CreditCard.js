@@ -14,9 +14,10 @@ import { Reserve } from './HotelSelection';
 import PaymentContext from '../../contexts/PaymentContext';
 import useSavePayment from '../../hooks/api/useSavePayment';
 
-export default function CreditCard() {
+export default function CreditCard({ setPaymentDone }) {
   const { paymentData } = useContext(PaymentContext);
   const { savePayment } = useSavePayment();
+  const [loading, setLoading] = useState(false);
   const [cardData, setCardData] = useState({
     number: '',
     name: '',
@@ -49,9 +50,10 @@ export default function CreditCard() {
     setCardData({ ...cardData, [target.name]: target.value });
   };
 
-  const handleSubmit = async(e) => {
+  // eslint-disable-next-line space-before-function-paren
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     const payment = {
       ...paymentData,
       cardNumber: cardData.number.replace(/\s/g, ''),
@@ -62,8 +64,11 @@ export default function CreditCard() {
     try {
       await savePayment(payment);
       toast('Compra finalizada!');
+      setLoading(false);
+      setPaymentDone(true);
     } catch (e) {
       toast('Não foi possível comprar o ingresso!');
+      setLoading(false);
     }
   };
 
@@ -138,7 +143,7 @@ export default function CreditCard() {
         </div>
         <input type="hidden" name="issuer" value={cardData.issuer} />
         <ButtonBox>
-          <Reserve>FINALIZAR PAGAMENTO</Reserve>
+          <Reserve disabled={loading}>FINALIZAR PAGAMENTO</Reserve>
         </ButtonBox>
       </form>
     </Container>

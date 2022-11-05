@@ -4,7 +4,6 @@ import { IoIosCheckmarkCircle } from 'react-icons/io';
 export default function ConfirmPayment() {
   return (
     <>
-      <Tittle>Pagamento</Tittle>
       <Container>
         <IconBox>
           <IoIosCheckmarkCircle />
@@ -17,10 +16,6 @@ export default function ConfirmPayment() {
     </>
   );
 }
-const Tittle = styled.h2`
-  font-size: 15px;
-  margin-bottom: 15px;
-`;
 const Container = styled.section`
   display: flex;
   align-items: center;
@@ -32,12 +27,12 @@ const IconBox = styled.div`
   align-items: center;
 `;
 const TextBox = styled.div`
-  font-size: 14px;
-  font-weight: 300;
+  font-size: 16px;
+  font-weight: 400;
   margin-left: 5px;
 
   h3 {
-    font-weight: 500;
+    font-weight: 700;
     margin-bottom: 2px;
   }
 `;

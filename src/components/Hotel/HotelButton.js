@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import useRooms from '../../hooks/api/useRooms';
 
-export default function HotelButton({ buttonStatus, name, imageUrl, accommodationsType, roomsVacancies }) {
+export default function HotelButton({ index, name, imageUrl, accommodationsType, roomsVacancies, rooms, setRooms }) {
   const [type, setType] = useState('');
-
+  const { rooms: roomsReceived } = useRooms(index);
   useEffect(() => {
     if (accommodationsType === 1) {
       setType('Single');
@@ -14,8 +15,15 @@ export default function HotelButton({ buttonStatus, name, imageUrl, accommodatio
     }
   }, []);
 
+  function openRooms() {
+    if (rooms[0]?.hotelId === index) {
+      setRooms('');
+    } else {
+      setRooms(roomsReceived);
+    }
+  }
   return (
-    <Box buttonStatus={buttonStatus}>
+    <Box onClick={() => openRooms()} rooms={rooms} index={index}>
       <img src={imageUrl} alt="Hotel" height={109} width={168} />
       <h3>{name}</h3>
       <h4>Tipos de acomodação:</h4>
@@ -28,18 +36,16 @@ export default function HotelButton({ buttonStatus, name, imageUrl, accommodatio
 
 const Box = styled.div`
   width: 196px;
-  height: 264px;
+  min-height: 264px;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   margin: 20px 24px;
-  padding: 16px 14px 0 14px;
+  padding: 16px 14px 16px 14px;
   margin-left: 0px;
-  background-color: #f1f1f1;
+  background-color: ${(props) => (props.rooms[0]?.hotelId !== props.index ? '#F1F1F1' : '#FFEED2')};
   cursor: pointer;
-
-  background-color: ${(props) => (props.buttonStatus ? '#FFEED2' : '#FFFFFF')};
 
   img {
     border-radius: 5px;

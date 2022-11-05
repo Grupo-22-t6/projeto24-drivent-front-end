@@ -1,21 +1,21 @@
 import useAsync from '../useAsync';
 
-import * as hotelsApi from '../../services/hotelsApi';
+import * as hotelApi from '../../services/hotelApi';
+import useToken from '../useToken';
 
 export default function useHotel() {
-  const { data: hotels, loading: hotelsLoading, error: hotelsError } = useAsync(hotelsApi.getHotels);
+  const token = useToken();
   const {
-    data: roomsVacancies,
-    loading: roomsVacanciesLoading,
-    error: roomsVacanciesError,
-  } = useAsync(hotelsApi.getRoomsVacancies);
+    data: hotels,
+    loading: hotelsLoading,
+    error: hotelsError,
+    act: getHotels,
+  } = useAsync(() => hotelApi.getHotels(token));
 
   return {
     hotels,
     hotelsLoading,
     hotelsError,
-    roomsVacancies,
-    roomsVacanciesLoading,
-    roomsVacanciesError,
+    getHotels,
   };
 }
