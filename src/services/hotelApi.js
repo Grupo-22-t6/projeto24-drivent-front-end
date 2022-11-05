@@ -1,7 +1,11 @@
 import api from './api';
 
-export async function getHotels() {
-  const response = await api.get('/hotel');
+export async function getHotels(token) {
+  const response = await api.get('/hotel', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return response.data;
 }
 
