@@ -19,6 +19,7 @@ export default function RoomsBox({ rooms }) {
             accommodationType={room.accommodationType}
             reserves={room.reserves.length}
             setRoomSelected={setRoomSelected}
+            roomSelected={roomSelected}
           />
         ))}
       </Box>
