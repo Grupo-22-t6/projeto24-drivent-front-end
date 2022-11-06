@@ -1,22 +1,28 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Reserve } from '../Payment/HotelSelection';
 
 import Room from './Room';
 
 export default function RoomsBox({ rooms }) {
+  const [roomSelected, setRoomSelected] = useState('');
+  useEffect(() => {
+    setRoomSelected('');
+  }, [rooms]);
   return (
     <>
       <Box>
         {rooms?.map((room, index) => (
           <Room
-            key={index}
+            id={room.id}
             number={room.number}
             accommodationType={room.accommodationType}
             reserves={room.reserves.length}
+            setRoomSelected={setRoomSelected}
           />
         ))}
       </Box>
-      <Reserve>RESERVAR QUARTO</Reserve>
+      <Reserve display={roomSelected ? 'initial' : 'none'}>RESERVAR QUARTO</Reserve>
     </>
   );
 }

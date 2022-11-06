@@ -4,7 +4,7 @@ import { BsPerson, BsPersonFill } from 'react-icons/bs';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-export default function Room({ number, accommodationType, reserves }) {
+export default function Room({ id, number, accommodationType, reserves, setRoomSelected }) {
   const [vacancies, setVacancies] = useState([]);
   useEffect(() => {
     defineVacancies();
@@ -26,6 +26,7 @@ export default function Room({ number, accommodationType, reserves }) {
     <Container
       availability={accommodationType - reserves === 0 ? '#CECECE' : '#FFFFFF'}
       opacity={accommodationType - reserves === 0 ? '60%' : '100%'}
+      onClick={() => setRoomSelected(id)}
     >
       <h3>{number}</h3>
       <div>{vacancies?.map((vacancie) => vacancie)}</div>
