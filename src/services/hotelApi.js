@@ -18,3 +18,13 @@ export async function getRooms(hotelId, token) {
 
   return response.data;
 }
+
+export async function reserveRoom(roomId, token) {
+  const response = await api.post(`/hotel/room/${roomId}`, '', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+}
