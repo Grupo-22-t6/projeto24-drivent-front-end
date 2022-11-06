@@ -1,14 +1,27 @@
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import styled from 'styled-components';
+import useReserveRoom from '../../hooks/api/useReserveRoom';
 import { Reserve } from '../Payment/HotelSelection';
 
 import Room from './Room';
 
 export default function RoomsBox({ rooms }) {
   const [roomSelected, setRoomSelected] = useState('');
+  const { reserveRoom } = useReserveRoom();
   useEffect(() => {
     setRoomSelected('');
   }, [rooms]);
+
+  async function saveReserve() {
+    try {
+      await reserveRoom(roomSelected);
+      toast('Quarto Reservado!');
+    } catch (e) {
+      toast('Não foi possível comprar o ingresso!');
+    }
+  }
+
   return (
     <>
       <Box>
@@ -23,7 +36,9 @@ export default function RoomsBox({ rooms }) {
           />
         ))}
       </Box>
-      <Reserve display={roomSelected ? 'initial' : 'none'}>RESERVAR QUARTO</Reserve>
+      <Reserve onClick={() => saveReserve()} display={roomSelected ? 'initial' : 'none'}>
+        RESERVAR QUARTO
+      </Reserve>
     </>
   );
 }
