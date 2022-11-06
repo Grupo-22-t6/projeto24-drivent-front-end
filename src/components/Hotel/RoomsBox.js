@@ -1,19 +1,23 @@
 import styled from 'styled-components';
+import { Reserve } from '../Payment/HotelSelection';
 
 import Room from './Room';
 
 export default function RoomsBox({ rooms }) {
   return (
-    <Box>
-      {rooms?.map((room, index) => (
-        <Room
-          key={index}
-          number={room.number}
-          accommodationType={room.accommodationType}
-          reserves={room.reserves.length}
-        />
-      ))}
-    </Box>
+    <>
+      <Box>
+        {rooms?.map((room, index) => (
+          <Room
+            key={index}
+            number={room.number}
+            accommodationType={room.accommodationType}
+            reserves={room.reserves.length}
+          />
+        ))}
+      </Box>
+      <Reserve>RESERVAR QUARTO</Reserve>
+    </>
   );
 }
 
@@ -22,5 +26,5 @@ const Box = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  margin-top: 30px;
+  margin: 30px 0px;
 `;
