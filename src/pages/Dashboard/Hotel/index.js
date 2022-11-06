@@ -54,5 +54,3 @@ const Hotels = styled.div`
   height: 80%;
   margin-bottom: 30px;
 `;
-
-const Span = styled.span``;
