@@ -1,16 +1,18 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import styled from 'styled-components';
 import CardButton from './CardButton';
 import { useNavigate } from 'react-router-dom';
+import EventInfoContext from '../../contexts/EventInfoContext';
+import PaymentContext from '../../contexts/PaymentContext';
 
 export default function HotelSelection({ presentialPrice, onlinePrice }) {
+  const { eventInfo } = useContext(EventInfoContext);
+  const { paymentData, setPaymentData } = useContext(PaymentContext);
   const navigate = useNavigate();
   const [buttonStatus, setButtonStatus] = useState([false, false]);
-  const [haveHotel, setHaveHotel] = useState(false);
-  const [finalPrice, setFinalPrice] = useState('');
 
   const toPaymentCard = () => {
-    navigate('/dashboard/payment/card', { state: { finalPrice, haveHotel } });
+    navigate('/dashboard/payment/card');
   };
 
   return (
@@ -19,16 +21,8 @@ export default function HotelSelection({ presentialPrice, onlinePrice }) {
       <SelectionContainer>
         <Span
           onClick={() => {
-            if (buttonStatus[0] === buttonStatus[1]) {
-              const newStatus = [true, false];
-              setButtonStatus(newStatus);
-            }
-            if (buttonStatus[1] === true) {
-              const newStatus = [true, false];
-              setButtonStatus(newStatus);
-            }
-            setHaveHotel(false);
-            setFinalPrice(0 + onlinePrice);
+            setButtonStatus([!buttonStatus[0], false]);
+            setPaymentData({ ...paymentData, withHotel: false, paymentValue: eventInfo.presentialPrice });
           }}
           buttonStatus={buttonStatus[0]}
         >
@@ -36,31 +30,33 @@ export default function HotelSelection({ presentialPrice, onlinePrice }) {
         </Span>
         <Span
           onClick={() => {
-            if (buttonStatus[0] === buttonStatus[1]) {
-              const newStatus = [false, true];
-              setButtonStatus(newStatus);
-            }
-            if (buttonStatus[0] === true) {
-              const newStatus = [false, true];
-              setButtonStatus(newStatus);
-            }
-            setFinalPrice(350 + presentialPrice);
-            setHaveHotel(true);
+            setButtonStatus([false, !buttonStatus[1]]);
+            setPaymentData({
+              ...paymentData,
+              withHotel: !buttonStatus[1],
+              paymentValue: eventInfo.presentialPrice + eventInfo.hotelPrice,
+            });
           }}
           buttonStatus={buttonStatus[1]}
         >
-          <CardButton price="350">Com Hotel</CardButton>
+          <CardButton price={eventInfo.hotelPrice}>Com Hotel</CardButton>
         </Span>
       </SelectionContainer>
       {buttonStatus[0] ? (
         <>
-          <h2>Fechado! O total ficou em R$ {finalPrice}. Agora é só confirmar:</h2>
+          <h2>Fechado! O total ficou em R$ {eventInfo.presentialPrice}. Agora é só confirmar:</h2>
           <Reserve onClick={() => toPaymentCard()}>RESERVAR INGRESSO</Reserve>
         </>
       ) : buttonStatus[1] ? (
         <>
-          <h2>Fechado! O total ficou em R$ {finalPrice}. Agora é só confirmar:</h2>
-          <Reserve onClick={() => toPaymentCard()}>RESERVAR INGRESSO</Reserve>
+          <h2>Fechado! O total ficou em R$ {paymentData.paymentValue}. Agora é só confirmar:</h2>
+          <Reserve
+            onClick={() => {
+              toPaymentCard();
+            }}
+          >
+            RESERVAR INGRESSO
+          </Reserve>
         </>
       ) : (
         ''

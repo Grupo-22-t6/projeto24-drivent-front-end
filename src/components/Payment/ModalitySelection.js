@@ -10,7 +10,6 @@ export default function ModalitySelection() {
   const { eventInfo } = useContext(EventInfoContext);
   const { paymentData, setPaymentData } = useContext(PaymentContext);
   const [buttonStatus, setButtonStatus] = useState([false, false]);
-
   useEffect(() => {
     setPaymentData({ ...paymentData, eventId: eventInfo.id });
   }, []);
