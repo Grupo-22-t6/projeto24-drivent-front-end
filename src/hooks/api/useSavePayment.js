@@ -7,13 +7,13 @@ export default function useSavePayment() {
   const token = useToken();
 
   const {
-    loading: usePaymentLoading,
+    loading: savePaymentLoading,
     error: savePaymentError,
     act: savePayment,
   } = useAsync((data) => paymentApi.pay(data, token), false);
 
   return {
-    usePaymentLoading,
+    savePaymentLoading,
     savePaymentError,
     savePayment,
   };
