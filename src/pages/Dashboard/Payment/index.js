@@ -1,9 +1,18 @@
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import PaymentContext from '../../../contexts/PaymentContext';
 import styled from 'styled-components';
 import ModalitySelection from '../../../components/Payment/ModalitySelection';
 import useEnrollment from '../../../hooks/api/useEnrollment';
+import { useEffect } from 'react';
 
 export default function Payment() {
   const { enrollment } = useEnrollment();
+  const navigate = useNavigate();
+  const { paymentData } = useContext(PaymentContext);
+  useEffect(() => {
+    if (paymentData.paymentDone) return navigate('/dashboard/payment/card');
+  }, []);
 
   if (!enrollment) {
     return (

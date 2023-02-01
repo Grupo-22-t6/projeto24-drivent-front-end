@@ -15,6 +15,7 @@ export function PaymentProvider({ children }) {
     cardName: undefined,
     expirationDate: undefined,
     securityCode: undefined,
+    paymentDone: false,
   });
 
   return <PaymentContext.Provider value={{ paymentData, setPaymentData }}>{children}</PaymentContext.Provider>;

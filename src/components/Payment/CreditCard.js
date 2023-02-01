@@ -14,8 +14,8 @@ import { Reserve } from './HotelSelection';
 import PaymentContext from '../../contexts/PaymentContext';
 import useSavePayment from '../../hooks/api/useSavePayment';
 
-export default function CreditCard({ setPaymentDone }) {
-  const { paymentData } = useContext(PaymentContext);
+export default function CreditCard() {
+  const { paymentData, setPaymentData } = useContext(PaymentContext);
   const { savePayment } = useSavePayment();
   const [loading, setLoading] = useState(false);
   const [cardData, setCardData] = useState({
@@ -61,11 +61,12 @@ export default function CreditCard({ setPaymentDone }) {
       expirationDate: cardData.expiry.trim(),
       securityCode: cardData.cvc.trim(),
     };
+    delete payment.paymentDone;
     try {
       await savePayment(payment);
       toast('Compra finalizada!');
+      setPaymentData({ ...paymentData, paymentDone: true });
       setLoading(false);
-      setPaymentDone(true);
     } catch (e) {
       toast('Não foi possível comprar o ingresso!');
       setLoading(false);

@@ -1,27 +1,31 @@
-import { useContext, useEffect, useState } from 'react';
-
+import { useContext } from 'react';
 import styled from 'styled-components';
 import PaymentContext from '../../../contexts/PaymentContext';
 import CreditCard from '../../../components/Payment/CreditCard';
 import ConfirmPayment from '../../../components/Payment/ConfirmPayment';
 export default function PaymentCard() {
-  const { paymentData, setPaymentData } = useContext(PaymentContext);
-
+  const { paymentData } = useContext(PaymentContext);
+  function showChoices() {
+    let text = '';
+    paymentData.isPresential ? (text += 'Presencial ') : (text += 'Online');
+    if (paymentData.withHotel) text += '+ Hotel';
+    return text;
+  }
   return (
     <>
       <Container>
         <h1>Ingresso e pagamento</h1>
         <h2>Ingresso escolhido</h2>
         <Box>
-          <h3>{}</h3>
-          <h4></h4>
+          <h3>{showChoices()}</h3>
+          <h4>R$ ${paymentData.paymentValue}</h4>
         </Box>
         <h2>Pagamento</h2>
-        {true ? (
+        {paymentData.paymentDone ? (
           <ConfirmPayment />
         ) : (
           <CardBox>
-            <CreditCard setPaymentDone={true} />
+            <CreditCard />
           </CardBox>
         )}
       </Container>
@@ -58,7 +62,7 @@ const Box = styled.div`
   margin-bottom: 20px;
   margin-left: 0px;
   background-color: #ffeed2;
-  cursor: pointer;
+
   h3 {
     color: #454545;
     font-size: 16px;
