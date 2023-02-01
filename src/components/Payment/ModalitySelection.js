@@ -10,67 +10,35 @@ export default function ModalitySelection() {
   const { eventInfo } = useContext(EventInfoContext);
   const { paymentData, setPaymentData } = useContext(PaymentContext);
   const [buttonStatus, setButtonStatus] = useState([false, false]);
+
   useEffect(() => {
-    let newPaymentData = paymentData;
-    newPaymentData.eventId = eventInfo.id;
-  });
+    setPaymentData({ ...paymentData, eventId: eventInfo.id });
+  }, []);
   return (
     <>
       <SelectionContainer>
         {eventInfo.isPresential ? (
           <Span
             onClick={() => {
-              if (buttonStatus[0] === buttonStatus[1]) {
-                const newStatus = [true, false];
-                let newPaymentData = paymentData;
-                newPaymentData.isPresential = true;
-                newPaymentData.isOnline = false;
-                setButtonStatus(newStatus);
-                setPaymentData(newPaymentData);
-              }
-              if (buttonStatus[1] === true) {
-                const newStatus = [true, false];
-                let newPaymentData = paymentData;
-                newPaymentData.isPresential = true;
-                newPaymentData.isOnline = false;
-                setButtonStatus(newStatus);
-                setPaymentData(newPaymentData);
-              }
+              setButtonStatus([!buttonStatus[0], false]);
+              setPaymentData({ ...paymentData, isPresential: !buttonStatus[0] });
             }}
             buttonStatus={buttonStatus[0]}
           >
             <CardButton price={eventInfo.presentialPrice}>Presencial</CardButton>
           </Span>
-        ) : (
-          ''
-        )}
+        ) : null}
         {eventInfo.isOnline ? (
           <Span
             onClick={() => {
-              if (buttonStatus[0] === buttonStatus[1]) {
-                const newStatus = [false, true];
-                let newPaymentData = paymentData;
-                newPaymentData.isPresential = false;
-                newPaymentData.isOnline = true;
-                setButtonStatus(newStatus);
-                setPaymentData(newPaymentData);
-              }
-              if (buttonStatus[0] === true) {
-                const newStatus = [false, true];
-                let newPaymentData = paymentData;
-                newPaymentData.isPresential = false;
-                newPaymentData.isOnline = true;
-                setButtonStatus(newStatus);
-                setPaymentData(newPaymentData);
-              }
+              setButtonStatus([false, !buttonStatus[1]]);
+              setPaymentData({ ...paymentData, isPresential: false });
             }}
             buttonStatus={buttonStatus[1]}
           >
             <CardButton price={eventInfo.onlinePrice}>Online</CardButton>
           </Span>
-        ) : (
-          ''
-        )}
+        ) : null}
       </SelectionContainer>
       {paymentData.isPresential && (
         <HotelSelection presentialPrice={eventInfo.presentialPrice} onlinePrice={eventInfo.onlinePrice} />
