@@ -3,8 +3,15 @@ import styled from 'styled-components';
 import PaymentContext from '../../../contexts/PaymentContext';
 import CreditCard from '../../../components/Payment/CreditCard';
 import ConfirmPayment from '../../../components/Payment/ConfirmPayment';
+import { useEffect } from 'react';
+import useVerifyPaymentDone from '../../../hooks/api/useVerifyPaymentDone';
+
 export default function PaymentCard() {
-  const { paymentData } = useContext(PaymentContext);
+  const { paymentData, setPaymentData } = useContext(PaymentContext);
+  const { paymentIsDone } = useVerifyPaymentDone();
+  useEffect(() => {
+    if (paymentIsDone) setPaymentData({ ...paymentData, ...paymentIsDone });
+  }, [paymentIsDone]);
   function showChoices() {
     let text = '';
     paymentData.isPresential ? (text += 'Presencial ') : (text += 'Online');
@@ -21,7 +28,7 @@ export default function PaymentCard() {
           <h4>R$ ${paymentData.paymentValue}</h4>
         </Box>
         <h2>Pagamento</h2>
-        {paymentData.paymentDone ? (
+        {paymentIsDone || paymentData.paymentDone ? (
           <ConfirmPayment />
         ) : (
           <CardBox>

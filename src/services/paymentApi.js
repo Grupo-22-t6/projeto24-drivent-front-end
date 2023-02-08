@@ -9,3 +9,13 @@ export async function pay(body, token) {
 
   return response.data;
 }
+
+export async function verifyPaymentDone(token) {
+  const response = await api.get('/payment/', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  console.log(response.data);
+  return response.data;
+}

@@ -11,6 +11,7 @@ export function PaymentProvider({ children }) {
     isPresential: undefined,
     withHotel: undefined,
     paymentValue: undefined,
+    paymentDone: false,
   });
 
   return <PaymentContext.Provider value={{ paymentData, setPaymentData }}>{children}</PaymentContext.Provider>;
