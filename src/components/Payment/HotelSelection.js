@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import EventInfoContext from '../../contexts/EventInfoContext';
 import PaymentContext from '../../contexts/PaymentContext';
 
-export default function HotelSelection({ presentialPrice, onlinePrice }) {
+export default function HotelSelection() {
   const { eventInfo } = useContext(EventInfoContext);
   const { paymentData, setPaymentData } = useContext(PaymentContext);
   const navigate = useNavigate();
