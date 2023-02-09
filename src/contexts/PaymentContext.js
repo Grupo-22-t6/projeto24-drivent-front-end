@@ -9,12 +9,9 @@ export function PaymentProvider({ children }) {
   const [paymentData, setPaymentData] = useLocalStorage('paymentData', {
     eventId: undefined,
     isPresential: undefined,
-    isOnline: undefined,
+    withHotel: undefined,
     paymentValue: undefined,
-    cardNumber: undefined,
-    cardName: undefined,
-    expirationDate: undefined,
-    securityCode: undefined,
+    paymentDone: false,
   });
 
   return <PaymentContext.Provider value={{ paymentData, setPaymentData }}>{children}</PaymentContext.Provider>;

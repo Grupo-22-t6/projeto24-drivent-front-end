@@ -1,38 +1,42 @@
-import { useContext, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useContext } from 'react';
 import styled from 'styled-components';
 import PaymentContext from '../../../contexts/PaymentContext';
 import CreditCard from '../../../components/Payment/CreditCard';
 import ConfirmPayment from '../../../components/Payment/ConfirmPayment';
+import { useEffect } from 'react';
+import useVerifyPaymentDone from '../../../hooks/api/useVerifyPaymentDone';
+
 export default function PaymentCard() {
   const { paymentData, setPaymentData } = useContext(PaymentContext);
-  const [isPresential, setIspresential] = useState('Online');
-  const [haveHotel, setHaveHotel] = useState('Sem Hotel');
-  const [paymentDone, setPaymentDone] = useState(false);
-
-  const location = useLocation();
-
+  const { paymentIsDone } = useVerifyPaymentDone();
   useEffect(() => {
-    if (paymentData.isPresential === true) setIspresential('Presencial');
-    if (location.state.haveHotel === true) setHaveHotel('Com Hotel');
-    setPaymentData({ ...paymentData, paymentValue: location.state.finalPrice });
-  }, []);
-
+    if (paymentIsDone) {
+      setPaymentData({ ...paymentData, ...paymentIsDone });
+    } else {
+      setPaymentData({ ...paymentData, paymentDone: false });
+    }
+  }, [paymentIsDone]);
+  function showChoices() {
+    let text = '';
+    paymentData.isPresential ? (text += 'Presencial ') : (text += 'Online');
+    if (paymentData.withHotel) text += '+ Hotel';
+    return text;
+  }
   return (
     <>
       <Container>
         <h1>Ingresso e pagamento</h1>
         <h2>Ingresso escolhido</h2>
         <Box>
-          <h3>{`${isPresential}  + ${haveHotel}`}</h3>
-          <h4>R$ {location.state.finalPrice}</h4>
+          <h3>{showChoices()}</h3>
+          <h4>R$ {paymentData.paymentValue}</h4>
         </Box>
         <h2>Pagamento</h2>
-        {paymentDone ? (
+        {paymentIsDone || paymentData.paymentDone ? (
           <ConfirmPayment />
         ) : (
           <CardBox>
-            <CreditCard setPaymentDone={setPaymentDone} />
+            <CreditCard />
           </CardBox>
         )}
       </Container>
@@ -69,7 +73,7 @@ const Box = styled.div`
   margin-bottom: 20px;
   margin-left: 0px;
   background-color: #ffeed2;
-  cursor: pointer;
+
   h3 {
     color: #454545;
     font-size: 16px;

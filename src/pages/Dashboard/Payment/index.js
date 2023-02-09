@@ -1,9 +1,17 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ModalitySelection from '../../../components/Payment/ModalitySelection';
 import useEnrollment from '../../../hooks/api/useEnrollment';
+import { useEffect } from 'react';
+import useVerifyPaymentDone from '../../../hooks/api/useVerifyPaymentDone';
 
 export default function Payment() {
   const { enrollment } = useEnrollment();
+  const navigate = useNavigate();
+  const { paymentIsDone } = useVerifyPaymentDone();
+  useEffect(() => {
+    if (paymentIsDone) navigate('/dashboard/payment/card');
+  }, [paymentIsDone]);
 
   if (!enrollment) {
     return (
