@@ -61,6 +61,7 @@ export default function CreditCard({ setPaymentIsDoneState }) {
       expirationDate: cardData.expiry.trim(),
       securityCode: cardData.cvc.trim(),
     };
+    delete payment.paymentDone;
     try {
       await savePayment(payment);
       setPaymentData({ ...paymentData, paymentDone: true });

@@ -10,7 +10,11 @@ export default function PaymentCard() {
   const { paymentData, setPaymentData } = useContext(PaymentContext);
   const { paymentIsDone } = useVerifyPaymentDone();
   useEffect(() => {
-    if (paymentIsDone) setPaymentData({ ...paymentData, ...paymentIsDone });
+    if (paymentIsDone) {
+      setPaymentData({ ...paymentData, ...paymentIsDone });
+    } else {
+      setPaymentData({ ...paymentData, paymentDone: false });
+    }
   }, [paymentIsDone]);
   function showChoices() {
     let text = '';
@@ -25,7 +29,7 @@ export default function PaymentCard() {
         <h2>Ingresso escolhido</h2>
         <Box>
           <h3>{showChoices()}</h3>
-          <h4>R$ ${paymentData.paymentValue}</h4>
+          <h4>R$ {paymentData.paymentValue}</h4>
         </Box>
         <h2>Pagamento</h2>
         {paymentIsDone || paymentData.paymentDone ? (
