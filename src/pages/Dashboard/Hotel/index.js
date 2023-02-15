@@ -3,10 +3,34 @@ import styled from 'styled-components';
 import HotelButton from '../../../components/Hotel/HotelButton';
 import RoomsBox from '../../../components/Hotel/RoomsBox';
 import useHotel from '../../../hooks/api/useHotel';
+import useVerifyPaymentDone from '../../../hooks/api/useVerifyPaymentDone';
 
 export default function Hotel() {
   const { hotels } = useHotel();
+  const { paymentIsDone } = useVerifyPaymentDone();
   const [rooms, setRooms] = useState('');
+
+  if (!paymentIsDone) {
+    return (
+      <Container>
+        <h1>Escolha de hotel e quarto</h1>
+        <ContentCentered>
+          <h2>Você precisa ter confirmado pagamento antes de fazer a escolha de hospedagem</h2>
+        </ContentCentered>
+      </Container>
+    );
+  }
+
+  if (!paymentIsDone?.withHotel && paymentIsDone) {
+    return (
+      <Container>
+        <h1>Escolha de hotel e quarto</h1>
+        <ContentCentered>
+          <h2>Sua modalidade de ingresso não inclui hospedagem Prossiga para a escolha de atividades</h2>
+        </ContentCentered>
+      </Container>
+    );
+  }
 
   return (
     <Container>
@@ -27,6 +51,7 @@ export default function Hotel() {
           );
         })}
       </Hotels>
+
       {rooms !== '' ? (
         <>
           <h2>Ótima pedida! Agora escolha seu quarto:</h2>
@@ -38,6 +63,8 @@ export default function Hotel() {
 }
 
 const Container = styled.div`
+  width: 100%;
+  height: 90%;
   h1 {
     font-size: 34px;
     margin-bottom: 28px;
@@ -51,6 +78,16 @@ const Container = styled.div`
 const Hotels = styled.div`
   display: flex;
   width: 100%;
-  height: 80%;
+
   margin-bottom: 30px;
+`;
+
+const ContentCentered = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  padding: 0px 20%;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 `;

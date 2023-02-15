@@ -34,7 +34,7 @@ export default function Payment() {
 
 const Container = styled.div`
   width: 100%;
-  height: 80%;
+  height: 90%;
   h1 {
     font-size: 34px;
     margin-bottom: 28px;
