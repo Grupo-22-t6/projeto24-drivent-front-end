@@ -3,14 +3,14 @@ import styled from 'styled-components';
 import HotelButton from '../../../components/Hotel/HotelButton';
 import RoomsBox from '../../../components/Hotel/RoomsBox';
 import useHotel from '../../../hooks/api/useHotel';
-import useVerifyPaymentDone from '../../../hooks/api/useVerifyPaymentDone';
+import usePayment from '../../../hooks/api/usePayment';
 
 export default function Hotel() {
   const { hotels } = useHotel();
-  const { paymentIsDone } = useVerifyPaymentDone();
+  const { payment } = usePayment();
   const [rooms, setRooms] = useState('');
 
-  if (!paymentIsDone) {
+  if (!payment) {
     return (
       <Container>
         <h1>Escolha de hotel e quarto</h1>
@@ -21,7 +21,7 @@ export default function Hotel() {
     );
   }
 
-  if (!paymentIsDone?.withHotel && paymentIsDone) {
+  if (!payment?.withHotel && payment) {
     return (
       <Container>
         <h1>Escolha de hotel e quarto</h1>
