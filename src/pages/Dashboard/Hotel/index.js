@@ -9,7 +9,6 @@ export default function Hotel() {
   const { hotels } = useHotel();
   const { payment } = usePayment();
   const [rooms, setRooms] = useState('');
-
   if (!payment) {
     return (
       <Container>
