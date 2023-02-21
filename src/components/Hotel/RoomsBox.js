@@ -6,7 +6,7 @@ import { Reserve } from '../Payment/HotelSelection';
 
 import Room from './Room';
 
-export default function RoomsBox({ rooms }) {
+export default function RoomsBox({ rooms, setRooms, getReserve }) {
   const [roomSelected, setRoomSelected] = useState('');
   const { reserveRoom } = useReserveRoom();
   useEffect(() => {
@@ -16,6 +16,8 @@ export default function RoomsBox({ rooms }) {
   async function saveReserve() {
     try {
       await reserveRoom(roomSelected);
+      await getReserve();
+      setRooms('');
       toast('Quarto Reservado!');
     } catch (e) {
       toast('Não foi possível comprar o ingresso!');

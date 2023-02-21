@@ -1,3 +1,5 @@
+/* eslint-disable indent */
+
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import useRooms from '../../hooks/api/useRooms';
@@ -22,14 +24,43 @@ export default function HotelButton({ index, name, imageUrl, accommodationsType,
       setRooms(roomsReceived);
     }
   }
+  function numberToText() {
+    if (accommodationsType === 1) return 'Single';
+    if (accommodationsType === 2) return 'Double';
+    if (accommodationsType === 3) return 'Triple';
+  }
+
+  function roommates() {
+    if (rooms[0].roommates < 2) return 'Somente Você';
+    return 'Você e mais ' + rooms[0].roommates - 1;
+  }
+  function contentCard() {
+    if (rooms[0]?.roommates) {
+      return (
+        <>
+          <h4>Quarto reservado</h4>
+          <p>
+            {rooms[0].number} ({numberToText()})
+          </p>
+          <h4>Pessoas no seu quarto</h4>
+          <p>{roommates()}</p>
+        </>
+      );
+    }
+    return (
+      <>
+        <h4>Tipos de acomodação:</h4>
+        <p>{type}</p>
+        <h4>Vagas disponíveis:</h4>
+        <p>{roomsVacancies}</p>
+      </>
+    );
+  }
   return (
     <Box onClick={() => openRooms()} rooms={rooms} index={index}>
       <img src={imageUrl} alt="Hotel" height={109} width={168} />
       <h3>{name}</h3>
-      <h4>Tipos de acomodação:</h4>
-      <p>{type}</p>
-      <h4>Vagas disponíveis:</h4>
-      <p>{roomsVacancies}</p>
+      {contentCard()}
     </Box>
   );
 }
