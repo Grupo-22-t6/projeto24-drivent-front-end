@@ -79,7 +79,7 @@ export default function Hotel() {
       {rooms !== '' ? (
         <>
           <h2>Ótima pedida! Agora escolha seu quarto:</h2>
-          <RoomsBox rooms={rooms} setRooms={setRooms} getReserve={getReserve} />
+          <RoomsBox rooms={rooms} setRooms={setRooms} getReserve={getReserve} setUpdateMode={SetUpdateMode} />
         </>
       ) : null}
     </Container>
