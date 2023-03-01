@@ -3,6 +3,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import HotelButton from '../../../components/Hotel/HotelButton';
 import RoomsBox from '../../../components/Hotel/RoomsBox';
+import { Reserve } from '../../../components/Payment/HotelSelection';
 import useHotel from '../../../hooks/api/useHotel';
 import usePayment from '../../../hooks/api/usePayment';
 import useReserve from '../../../hooks/api/useReserve';
@@ -12,6 +13,7 @@ export default function Hotel() {
   const { payment } = usePayment();
   const { reserve, getReserve } = useReserve();
   const [rooms, setRooms] = useState('');
+  const [updateMode, SetUpdateMode] = useState(false);
 
   if (!payment) {
     return (
@@ -37,7 +39,7 @@ export default function Hotel() {
   return (
     <Container>
       <h1>Escolha de hotel e quarto</h1>
-      {reserve && hotels ? (
+      {reserve && hotels && !updateMode ? (
         <>
           <h2>Você ja escolheu o seu quarto</h2>
           <Hotels>
@@ -52,6 +54,7 @@ export default function Hotel() {
               {reserve}
             </HotelButton>
           </Hotels>
+          <Reserve onClick={() => SetUpdateMode(true)}>TROCAR DE QUARTO</Reserve>
         </>
       ) : (
         <>
