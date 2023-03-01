@@ -28,3 +28,12 @@ export async function reserveRoom(roomId, token) {
 
   return response.data;
 }
+
+export async function getReserveOfUser(token) {
+  const response = await api.get('/hotel/reserve', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+}

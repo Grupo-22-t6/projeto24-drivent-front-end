@@ -1,36 +1,85 @@
+/* eslint-disable indent */
 import { useState } from 'react';
 import styled from 'styled-components';
 import HotelButton from '../../../components/Hotel/HotelButton';
 import RoomsBox from '../../../components/Hotel/RoomsBox';
+import { Reserve } from '../../../components/Payment/HotelSelection';
 import useHotel from '../../../hooks/api/useHotel';
+import usePayment from '../../../hooks/api/usePayment';
+import useReserve from '../../../hooks/api/useReserve';
 
 export default function Hotel() {
   const { hotels } = useHotel();
+  const { payment } = usePayment();
+  const { reserve, getReserve } = useReserve();
   const [rooms, setRooms] = useState('');
+  const [updateMode, SetUpdateMode] = useState(false);
 
+  if (!payment) {
+    return (
+      <Container>
+        <h1>Escolha de hotel e quarto</h1>
+        <ContentCentered>
+          <h2>Você precisa ter confirmado pagamento antes de fazer a escolha de hospedagem</h2>
+        </ContentCentered>
+      </Container>
+    );
+  }
+
+  if (!payment?.withHotel && payment) {
+    return (
+      <Container>
+        <h1>Escolha de hotel e quarto</h1>
+        <ContentCentered>
+          <h2>Sua modalidade de ingresso não inclui hospedagem Prossiga para a escolha de atividades</h2>
+        </ContentCentered>
+      </Container>
+    );
+  }
   return (
     <Container>
       <h1>Escolha de hotel e quarto</h1>
-      <h2>Primeiro, escolha seu hotel</h2>
-      <Hotels>
-        {hotels?.map((hotel, index) => {
-          return (
+      {reserve && hotels && !updateMode ? (
+        <>
+          <h2>Você ja escolheu o seu quarto</h2>
+          <Hotels>
             <HotelButton
-              index={hotel.id}
-              name={hotel.name}
-              imageUrl={hotel.imageUrl}
-              accommodationsType={hotel.accommodationsTypes}
-              roomsVacancies={hotel.roomsVacancies}
-              rooms={rooms}
+              index={reserve.hotelId}
+              name={hotels[reserve.hotelId - 1].name}
+              imageUrl={hotels[reserve.hotelId - 1].imageUrl}
+              accommodationsType={reserve.accommodationType}
+              rooms={[reserve]}
               setRooms={setRooms}
-            />
-          );
-        })}
-      </Hotels>
+            >
+              {reserve}
+            </HotelButton>
+          </Hotels>
+          <Reserve onClick={() => SetUpdateMode(true)}>TROCAR DE QUARTO</Reserve>
+        </>
+      ) : (
+        <>
+          <h2>Primeiro, escolha seu hotel</h2>
+          <Hotels>
+            {hotels?.map((hotel, index) => {
+              return (
+                <HotelButton
+                  index={hotel.id}
+                  name={hotel.name}
+                  imageUrl={hotel.imageUrl}
+                  accommodationsType={hotel.accommodationsTypes}
+                  roomsVacancies={hotel.roomsVacancies}
+                  rooms={rooms}
+                  setRooms={setRooms}
+                />
+              );
+            })}
+          </Hotels>
+        </>
+      )}
       {rooms !== '' ? (
         <>
           <h2>Ótima pedida! Agora escolha seu quarto:</h2>
-          <RoomsBox rooms={rooms} setRooms={setRooms} />
+          <RoomsBox rooms={rooms} setRooms={setRooms} getReserve={getReserve} setUpdateMode={SetUpdateMode} />
         </>
       ) : null}
     </Container>
@@ -38,6 +87,8 @@ export default function Hotel() {
 }
 
 const Container = styled.div`
+  width: 100%;
+  height: 90%;
   h1 {
     font-size: 34px;
     margin-bottom: 28px;
@@ -45,12 +96,24 @@ const Container = styled.div`
   h2 {
     color: #8e8e8e;
     font-size: 20px;
+    margin-bottom: 20px;
   }
 `;
 
 const Hotels = styled.div`
   display: flex;
   width: 100%;
-  height: 80%;
+  flex-wrap: wrap;
+
   margin-bottom: 30px;
+`;
+
+const ContentCentered = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  padding: 0px 20%;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 `;

@@ -4,18 +4,18 @@ import PaymentContext from '../../../contexts/PaymentContext';
 import CreditCard from '../../../components/Payment/CreditCard';
 import ConfirmPayment from '../../../components/Payment/ConfirmPayment';
 import { useEffect } from 'react';
-import useVerifyPaymentDone from '../../../hooks/api/useVerifyPaymentDone';
+import usePayment from '../../../hooks/api/usePayment';
 
 export default function PaymentCard() {
   const { paymentData, setPaymentData } = useContext(PaymentContext);
-  const { paymentIsDone } = useVerifyPaymentDone();
+  const { payment } = usePayment();
   useEffect(() => {
-    if (paymentIsDone) {
-      setPaymentData({ ...paymentData, ...paymentIsDone });
+    if (payment) {
+      setPaymentData({ ...paymentData, ...payment });
     } else {
       setPaymentData({ ...paymentData, paymentDone: false });
     }
-  }, [paymentIsDone]);
+  }, [payment]);
   function showChoices() {
     let text = '';
     paymentData.isPresential ? (text += 'Presencial ') : (text += 'Online');
@@ -32,7 +32,7 @@ export default function PaymentCard() {
           <h4>R$ {paymentData.paymentValue}</h4>
         </Box>
         <h2>Pagamento</h2>
-        {paymentIsDone || paymentData.paymentDone ? (
+        {payment || paymentData.paymentDone ? (
           <ConfirmPayment />
         ) : (
           <CardBox>
@@ -86,5 +86,5 @@ const Box = styled.div`
   }
 `;
 const CardBox = styled.div`
-  margin: 20px 24px;
+  margin: 0px 24px 20px 0px;
 `;

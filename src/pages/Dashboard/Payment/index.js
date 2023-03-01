@@ -3,15 +3,15 @@ import styled from 'styled-components';
 import ModalitySelection from '../../../components/Payment/ModalitySelection';
 import useEnrollment from '../../../hooks/api/useEnrollment';
 import { useEffect } from 'react';
-import useVerifyPaymentDone from '../../../hooks/api/useVerifyPaymentDone';
+import usePayment from '../../../hooks/api/usePayment';
 
 export default function Payment() {
   const { enrollment } = useEnrollment();
   const navigate = useNavigate();
-  const { paymentIsDone } = useVerifyPaymentDone();
+  const { payment } = usePayment();
   useEffect(() => {
-    if (paymentIsDone) navigate('/dashboard/payment/card');
-  }, [paymentIsDone]);
+    if (payment) navigate('/dashboard/payment/card');
+  }, [payment]);
 
   if (!enrollment) {
     return (
@@ -34,7 +34,7 @@ export default function Payment() {
 
 const Container = styled.div`
   width: 100%;
-  height: 80%;
+  height: 90%;
   h1 {
     font-size: 34px;
     margin-bottom: 28px;

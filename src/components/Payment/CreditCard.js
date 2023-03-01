@@ -170,5 +170,5 @@ const Container = styled.div`
 const ButtonBox = styled.div`
   position: absolute;
   bottom: -100px;
-  left: 0px;
+  left: 2px;
 `;
