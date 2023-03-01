@@ -72,9 +72,9 @@ const Box = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 20px 24px;
+  margin-right: 19px;
+  margin-bottom: 19px;
   padding: 16px 14px 16px 14px;
-  margin-left: 0px;
   background-color: ${(props) => (props.rooms[0]?.hotelId !== props.index ? '#F1F1F1' : '#FFEED2')};
   cursor: pointer;
 

@@ -96,12 +96,14 @@ const Container = styled.div`
   h2 {
     color: #8e8e8e;
     font-size: 20px;
+    margin-bottom: 20px;
   }
 `;
 
 const Hotels = styled.div`
   display: flex;
   width: 100%;
+  flex-wrap: wrap;
 
   margin-bottom: 30px;
 `;

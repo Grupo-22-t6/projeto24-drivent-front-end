@@ -85,6 +85,7 @@ export const Reserve = styled.button`
   border-radius: 4px;
   font-weight: 400;
   font-size: 14px;
+  margin: 0px 0px 30px 0px;
   display: ${(props) => props.display};
   box-shadow: 0px 0px 10px 0.2px rgba(0, 0, 0, 0.3);
   :disabled {

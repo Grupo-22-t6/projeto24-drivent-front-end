@@ -86,5 +86,5 @@ const Box = styled.div`
   }
 `;
 const CardBox = styled.div`
-  margin: 20px 24px;
+  margin: 0px 24px 20px 0px;
 `;
