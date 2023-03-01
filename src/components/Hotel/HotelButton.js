@@ -31,8 +31,8 @@ export default function HotelButton({ index, name, imageUrl, accommodationsType,
   }
 
   function roommates() {
-    if (rooms[0].roommates < 2) return 'Somente Você';
-    return 'Você e mais ' + rooms[0].roommates - 1;
+    if (rooms[0].roommates <= 1) return 'Somente Você';
+    return 'Você e mais ' + (rooms[0].roommates - 1).toString();
   }
   function contentCard() {
     if (rooms[0]?.roommates) {
