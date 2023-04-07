@@ -63,7 +63,7 @@ export default function Hotel() {
             {hotels?.map((hotel, index) => {
               return (
                 <HotelButton
-                  index={hotel.id}
+                  key={hotel.id}
                   name={hotel.name}
                   imageUrl={hotel.imageUrl}
                   accommodationsType={hotel.accommodationsTypes}
@@ -86,7 +86,7 @@ export default function Hotel() {
   );
 }
 
-const Container = styled.div`
+export const Container = styled.div`
   width: 100%;
   height: 90%;
   h1 {

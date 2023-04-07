@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import useRooms from '../../hooks/api/useRooms';
 
-export default function HotelButton({ index, name, imageUrl, accommodationsType, roomsVacancies, rooms, setRooms }) {
+export default function HotelButton({ key, name, imageUrl, accommodationsType, roomsVacancies, rooms, setRooms }) {
   const [type, setType] = useState('');
-  const { rooms: roomsReceived } = useRooms(index);
+  const { rooms: roomsReceived } = useRooms(key);
   useEffect(() => {
     if (accommodationsType === 1) {
       setType('Single');
@@ -18,7 +18,7 @@ export default function HotelButton({ index, name, imageUrl, accommodationsType,
   }, []);
 
   function openRooms() {
-    if (rooms[0]?.hotelId === index) {
+    if (rooms[0]?.hotelId === key) {
       setRooms('');
     } else {
       setRooms(roomsReceived);
@@ -57,7 +57,7 @@ export default function HotelButton({ index, name, imageUrl, accommodationsType,
     );
   }
   return (
-    <Box onClick={() => openRooms()} rooms={rooms} index={index}>
+    <Box onClick={() => openRooms()} rooms={rooms} index={key}>
       <img src={imageUrl} alt="Hotel" height={109} width={168} />
       <h3>{name}</h3>
       {contentCard()}
