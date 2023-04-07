@@ -63,7 +63,7 @@ export default function Hotel() {
             {hotels?.map((hotel, index) => {
               return (
                 <HotelButton
-                  index={hotel.id}
+                  key={hotel.id}
                   name={hotel.name}
                   imageUrl={hotel.imageUrl}
                   accommodationsType={hotel.accommodationsTypes}
